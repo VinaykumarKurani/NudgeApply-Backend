@@ -9,10 +9,19 @@ import { GenerationModule } from './generation/generation.module';
 import { JobsModule } from './jobs/jobs.module';
 import { PaymentsModule } from './payments/payments.module';
 import { AdminModule } from './admin/admin.module';
+import { PrismaModule } from './prisma/prisma.module';
+import { ConfigModule } from '@nestjs/config';
+import * as Joi from 'joi';
 
 @Module({
-  imports: [UsersModule, ResumesModule, AuthModule, QuotaModule, GenerationModule, JobsModule, PaymentsModule, AdminModule],
+  imports: [ConfigModule.forRoot({
+    isGlobal: true,
+    validationSchema: Joi.object({
+      DATABASE_URL: Joi.string().required(),
+      DIRECT_URL: Joi.string().required(),
+    }),
+  }), UsersModule, ResumesModule, AuthModule, QuotaModule, GenerationModule, JobsModule, PaymentsModule, AdminModule, PrismaModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
