@@ -19,6 +19,7 @@ import * as Joi from 'joi';
     validationSchema: Joi.object({
       DATABASE_URL: Joi.string().required(),
       DIRECT_URL: Joi.string().required(),
+      SUPABASE_URL: Joi.string().required(),
     }),
   }), UsersModule, ResumesModule, AuthModule, QuotaModule, GenerationModule, JobsModule, PaymentsModule, AdminModule, PrismaModule],
   controllers: [AppController],
